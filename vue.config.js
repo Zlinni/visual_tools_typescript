@@ -16,7 +16,7 @@ module.exports = defineConfig({
   },
   // 构建依赖babel全转换
   transpileDependencies: true,
-  publicPath: "/",
+  publicPath: "/visual_tools_typescript/",
   // 构建之后的目录名字
   outputDir: "dist",
   // 构建之后静态资源存放的目录名字

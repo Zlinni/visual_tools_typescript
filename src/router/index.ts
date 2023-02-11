@@ -12,7 +12,7 @@ const routes: Array<RouteRecordRaw> = [
 
 const router = createRouter({
   // history: createWebHashHistory(),
-  history: createWebHistory(),
+  history: createWebHistory("/visual_tools_typescript/"),
   routes,
 });
 

@@ -162,7 +162,7 @@ const originDatas = ref<
   }>
 >([]);
 const getDatas = () => {
-  axios.get("/test.json").then((res) => {
+  axios.get("/visual_tools_typescript/test.json").then((res) => {
     originDatas.value = res.data;
     const { params } = route;
     console.log(params);
