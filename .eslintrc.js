@@ -25,6 +25,8 @@ module.exports = {
     "vue/multi-word-component-names": 0,
     "@typescript-eslint/no-explicit-any": 0,
     "no-undef": 0,
+    "linebreak-style": [0, "error", "windows"],
+    "prettier/prettier": ["error", { endOfLine: "auto" }],
   },
   // files: ["*.ts", "*.tsx", "*.vue"],
 };

@@ -41,7 +41,13 @@ const darkThemeOverrides = {
 };
 const router = useRouter();
 const keyChange = (key: string) => {
-  router.push({ path: "/" + key });
+  // router.push({ path: "/" + key });
+  router.push({
+    name: "home",
+    params: {
+      type: key,
+    },
+  });
 };
 </script>
 
@@ -54,7 +60,10 @@ const keyChange = (key: string) => {
     <n-dialog-provider>
       <n-message-provider>
         <n-layout has-sider class="h-screen">
-          <n-layout-sider content-style="padding: 16px;">
+          <n-layout-sider
+            content-style="padding: 16px;"
+            class="sm:hidden md:hidden lg:block"
+          >
             <LeftMenu @key-change="keyChange" />
           </n-layout-sider>
           <n-layout>
@@ -64,7 +73,10 @@ const keyChange = (key: string) => {
                 <n-button @click="$router.push('/about')">About</n-button>
               </nav> -->
             </n-layout-header>
-            <n-layout-content content-style="padding: 16px;">
+            <n-layout-content
+              content-style="padding: 16px;"
+              class="document-scroll-container"
+            >
               <RouterView />
             </n-layout-content>
             <!-- <n-layout-footer>我是底部footer</n-layout-footer> -->

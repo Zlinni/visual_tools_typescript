@@ -1,14 +1,17 @@
 <template>
-  <n-menu :options="menuOptions" @update-value="changeRoute"></n-menu>
-  <!-- <div>scac</div> -->
+  <n-menu
+    :options="menuOptions"
+    @update-value="changeRoute"
+    v-model:value="selectedKey"
+  ></n-menu>
 </template>
 
 <script setup lang="ts">
 import { NMenu } from "naive-ui";
 import type { MenuOption } from "naive-ui";
 import IconTool from "@/components/IconTool/IconTool.vue";
-import router from "@/router";
 
+const selectedKey = ref<string>("common");
 const renderIcon = (icon: string) => () =>
   h(IconTool, {
     icon,
@@ -36,7 +39,7 @@ const menuOptions = reactive<MenuOption[]>([
   },
   {
     label: "DOM 操作",
-    key: "DOM",
+    key: "dom",
     icon: renderIcon("icon-park-outline:dome"),
   },
 ]);
