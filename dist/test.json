@@ -1,0 +1,152 @@
+[
+  {
+    "fileName": "array",
+    "data": [
+      {
+        "id": 0,
+        "funName": "pickKeyArrFromArrayObject",
+        "code": "/**\r\n * 抽取array[object]中的指定项\r\n * @param arrayObject 对象数组\r\n * @param key 对象数组中的指定key\r\n * @param values 抽取的内容 为数组\r\n * @returns\r\n */\r\nconst pickKeyArrFromArrayObject = <T extends Record<string, any>>(\r\n  arrayObject: Array<T>,\r\n  key: keyof T,\r\n  values: Array<keyof T> | any[]\r\n): T[] => {\r\n  return arrayObject.filter((item) => item[key] && values.includes(item[key]));\r\n};"
+      },
+      {
+        "id": 1,
+        "funName": "delSelectedElementFromArray",
+        "code": "/**\r\n * 删除数组中指定元素 并返回原数组\r\n */\r\nconst delSelectedElementFromArray = <T extends Array<U>, U>(\r\n  arr: T,\r\n  key: U\r\n): U[] => {\r\n  arr.splice(arr.indexOf(key), 1);\r\n  return arr;\r\n};"
+      },
+      {
+        "id": 2,
+        "funName": "diffArrUnion",
+        "code": "/**\r\n * 数组比较差异返回交集\r\n * @param arr1 数组1\r\n * @param arr2 数组2\r\n * @returns 返回交集\r\n */\r\nconst diffArrUnion = (arr1: Array<any>, arr2: Array<any>) => {\r\n  return arr1.reduce((pre, cur) => {\r\n    const res = arr2.find((item2) => item2 === cur);\r\n    res && pre.push(res);\r\n    return pre;\r\n  }, []);\r\n};"
+      },
+      {
+        "id": 3,
+        "funName": "diffArrDiff",
+        "code": "/**\r\n * 数组比较差异返回差集\r\n * @param arr1 数组1\r\n * @param arr2 数组2\r\n * @returns 返回差集\r\n */\r\nconst diffArrDiff = (arr1: Array<any>, arr2: Array<any>) => {\r\n  return arr1.reduce((pre, cur) => {\r\n    const res = arr2.some((item2) => item2 === cur);\r\n    !res && pre.push(cur);\r\n    return pre;\r\n  }, []);\r\n};"
+      },
+      {
+        "id": 4,
+        "funName": "arrayGroupBy",
+        "code": "/**\r\n * 根据对象数组中的某一项分类数据\r\n * @param array 对象数组\r\n * @param target 目标key\r\n * @returns 分类后的数据\r\n */\r\nconst arrayGroupBy = <T extends Record<string, any>>(\r\n  array: T[],\r\n  target: keyof T\r\n): T[][] => {\r\n  return groupBy(array, (item) => item[target]);\r\n};"
+      },
+      {
+        "id": 5,
+        "funName": "processArrayWithUnderline",
+        "code": "/**\r\n * 抽取出array中的字符串并拼接上你喜欢的字符\r\n * @param inArr string | string[]\r\n * @returns array + /\r\n */\r\nconst processArrayWithUnderline = (inArr: string[], inStr: string): string => {\r\n  if (Array.isArray(inArr)) {\r\n    if (inArr.length === 0) return \"\";\r\n    const str = inArr.reduce((pre, cur) => {\r\n      return (pre += cur + inStr);\r\n    }, \"\");\r\n    const inStrLen = inStr.length;\r\n    return str.slice(0, -inStrLen);\r\n  }\r\n  return inArr;\r\n};"
+      },
+      {
+        "id": 6,
+        "funName": "addOrDelInArray",
+        "code": "/**\r\n * 如果在数组里就删除 否则就push\r\n * @param arr 数组\r\n * @param item 数组中的项\r\n * @param method 'push'|'unshift'\r\n * @returns 操作后的数组\r\n */\r\nconst addOrDelInArray = <T>(arr: T[], item: T, method?: \"push\" | \"unshift\") => {\r\n  // 有就删除 没有就加入\r\n  arr.includes(item)\r\n    ? delSelectedElementFromArray(arr, item)\r\n    : arr?.[method](item);\r\n  return arr;\r\n};"
+      }
+    ]
+  },
+  {
+    "fileName": "common",
+    "data": [
+      {
+        "id": 0,
+        "funName": "returnRangeNumber",
+        "code": "/**\r\n * 返回指定范围的数字\r\n * @param min 最小的值\r\n * @param max 最大的值\r\n * @param now 当前的值\r\n * @returns 范围数字\r\n */\r\nconst returnRangeNumber = (min: number, max: number, now: number): number => {\r\n  if (now > max) return max;\r\n  if (now < min) return min;\r\n  return now;\r\n};"
+      },
+      {
+        "id": 1,
+        "funName": "ifInRange",
+        "code": "/**\r\n * 判断是否在指定范围中\r\n * @param min 最小的值\r\n * @param max 最大的值\r\n * @param now 当前的值\r\n * @returns boolean\r\n */\r\nconst ifInRange = (min: number, max: number, now: number): boolean => {\r\n  return now > min && now < max;\r\n};"
+      },
+      {
+        "id": 2,
+        "funName": "ifLessThanTenAddZero",
+        "code": "/**\r\n * 对于小于10的数字前置加0\r\n * @param num\r\n * @returns string\r\n */\r\nconst ifLessThanTenAddZero = (num: number): string => {\r\n  return num < 10 ? `0${num}` : num.toString();\r\n};"
+      },
+      {
+        "id": 3,
+        "funName": "strCode",
+        "code": "/**\r\n * 获取字符数\r\n * @param str 字符串\r\n * @param chineseStrByte 中文作为多少个字节\r\n * @returns 字符数number\r\n */\r\nconst strCode = (str: string, chineseStrByte = 3): number => {\r\n  // 字符编码大于255，说明是双字节字符(即是中文)\r\n  return str.split(\"\").reduce((pre, cur, idx) => {\r\n    pre += str.charCodeAt(idx) > 255 ? chineseStrByte : 1;\r\n    return pre;\r\n  }, 0);\r\n};"
+      },
+      {
+        "id": 4,
+        "funName": "setCalTimer",
+        "code": "/**\r\n * 返回计时器Interval\r\n * @param timer 每隔几秒触发一次\r\n * @param callBack 计时器执行的函数\r\n * @returns 计时器id number\r\n */\r\nconst setCalTimer = (timer: number, callBack: () => void): number => {\r\n  return window.setInterval(() => callBack(), timer);\r\n};"
+      },
+      {
+        "id": 5,
+        "funName": "awaitLoop",
+        "code": "/**\r\n * 异步递归 遇到失败就抛出异常暂停\r\n * @param taskArr 递归数组\r\n * @param loopFn 异步函数 参数为递归数组中的项\r\n */\r\nconst awaitLoop = async (taskArr: loopArr, loopFn: loopFn) => {\r\n  try {\r\n    const num = await loopFn(taskArr.shift());\r\n    console.log(num);\r\n    if (num) {\r\n      awaitLoop(taskArr, loopFn);\r\n    }\r\n  } catch (error) {\r\n    throw new Error(error);\r\n  }\r\n};"
+      },
+      {
+        "id": 6,
+        "funName": "shuffle",
+        "code": "/**\r\n * 更好的洗牌算法\r\n * @param items 排序数组\r\n * @returns 排序后的数组\r\n */\r\nconst shuffle = (items: Array<any>): Array<any> => {\r\n  items = [...items];\r\n  for (let i = items.length; i > 0; i--) {\r\n    const idx = Math.floor(Math.random() * i);\r\n    [items[idx], items[i - 1]] = [items[i - 1], items[idx]];\r\n  }\r\n  return items;\r\n};"
+      },
+      {
+        "id": 7,
+        "funName": "createPromiseFn",
+        "code": "/**\r\n * 创建测试异步函数\r\n * @param inputMsg 输入的信息\r\n * @param outPutMsg 输出的信息\r\n * @param errorMsg 错误信息，如果输入的信息等于错误信息则抛出异常\r\n * @param timeout 延迟\r\n * @returns Promise\r\n */\r\nconst createPromiseFn = (\r\n  inputMsg: any,\r\n  outPutMsg: any,\r\n  errorMsg: any,\r\n  timeout: number\r\n): Promise<unknown> => {\r\n  return new Promise((resolve, reject) => {\r\n    if (inputMsg === errorMsg) reject(new Error(errorMsg));\r\n    setTimeout(() => {\r\n      resolve(outPutMsg);\r\n    }, timeout);\r\n  });\r\n};"
+      },
+      {
+        "id": 8,
+        "funName": "createFormData",
+        "code": "/**\r\n * 根据输入的object创建formData\r\n * @param obj Object\r\n * @returns formdata\r\n */\r\nconst createFormData = <T extends Record<string, any>>(obj: T): T => {\r\n  const formData = new FormData();\r\n  Object.keys(obj).forEach((key) => {\r\n    formData.append(key, obj[key]);\r\n  });\r\n  return formData as unknown as typeof obj;\r\n};"
+      },
+      {
+        "id": 9,
+        "funName": "createMapper",
+        "code": "/**\r\n * 根据object返回map对象\r\n * @param obj object\r\n * @returns map对象\r\n */\r\nconst createMapper = <T extends Record<string, any>>(obj: T) => {\r\n  const mapper = new Map();\r\n  Object.keys(obj).forEach((key) => {\r\n    mapper.set(key, obj[key]);\r\n  });\r\n  return mapper;\r\n};"
+      },
+      {
+        "id": 10,
+        "funName": "reverseObject",
+        "code": "/**\r\n * 反转Object键值对\r\n * @param Object 对象\r\n * @returns\r\n */\r\nconst reverseObject = <T extends Record<string, any>>(mapper: T) => {\r\n  return Object.keys(mapper).reduce((pre, curKey: keyof T) => {\r\n    pre[mapper[curKey]] = curKey;\r\n    return pre;\r\n  }, {} as Record<T[keyof T], keyof T>);\r\n};"
+      }
+    ]
+  },
+  {
+    "fileName": "dom",
+    "data": [
+      {
+        "id": 0,
+        "funName": "injectHerf",
+        "code": "/**\r\n * 注入链接到a标签并模拟点击\r\n * @param url 链接\r\n * @param fileName 文件名字\r\n */\r\nconst injectHerf = (url: string) => {\r\n  const link: HTMLAnchorElement = document.createElement(\"a\");\r\n  link.style.display = \"none\";\r\n  link.href = url;\r\n  // 新页面打开\r\n  link.target = \"_blank\";\r\n  // 触发点击\r\n  document.body.appendChild(link);\r\n  link.click();\r\n  // 移除\r\n  document.body.removeChild(link);\r\n};"
+      }
+    ]
+  },
+  {
+    "fileName": "file",
+    "data": [
+      {
+        "id": 0,
+        "funName": "downloadFileByBlob",
+        "code": "/**\r\n * 下载blob文件\r\n * @param blob blob\r\n * @param fileName 文件名\r\n */\r\nconst downloadFileByBlob = (blob: Blob, fileName: string): void => {\r\n  const blobUrl: string = window.URL.createObjectURL(blob);\r\n  const link: HTMLAnchorElement = document.createElement(\"a\");\r\n  link.download = fileName || \"testFile\";\r\n  link.style.display = \"none\";\r\n  link.href = blobUrl;\r\n  // 触发点击\r\n  document.body.appendChild(link);\r\n  link.click();\r\n  // 移除\r\n  document.body.removeChild(link);\r\n};"
+      },
+      {
+        "id": 1,
+        "funName": "dataURLtoFile",
+        "code": "/**\r\n * base64转file对象\r\n * @param dataurl base64 url\r\n * @param filename 文件名称\r\n * @returns\r\n */\r\nconst dataURLtoFile = (dataurl: string, filename: string) => {\r\n  // base64转file对象\r\n  const arr = dataurl.split(\",\");\r\n  const mime = arr[0].match(/:(.*?);/);\r\n  const bstr = atob(arr[1]);\r\n  let n = bstr.length;\r\n  const u8arr = new Uint8Array(n);\r\n  // eslint-disable-next-line no-plusplus\r\n  while (n--) {\r\n    u8arr[n] = bstr.charCodeAt(n);\r\n  }\r\n  if (mime) {\r\n    return new File([u8arr], filename, { type: mime[1] }); // 转成了jpeg格式\r\n  }\r\n};"
+      },
+      {
+        "id": 2,
+        "funName": "convertImage",
+        "code": "/**\r\n * 裁剪图片 思路是创建一个图片，将file等于这个图片，然后创建一个canvas图层 ，将canvas等比例缩放，然后用canvas的drawImage将图片与canvas合起来，然后在把canvas的base64转成file即可\r\n * @param file 文件\r\n * @returns 裁剪后的图片 file格式\r\n */\r\nconst convertImage = (file: File): Promise<File> =>\r\n  new Promise((resolve) => {\r\n    const fileName = file.name.substring(0, file.name.indexOf(\".\"));\r\n    const reader = new FileReader(); // 读取file\r\n    reader.readAsDataURL(file);\r\n    reader.onloadend = (e: any) => {\r\n      const image = new Image(); // 新建一个img标签（还没嵌入DOM节点)\r\n      image.src = e.target.result; // 将图片的路径设成file路径\r\n      image.onload = () => {\r\n        const canvas = document.createElement(\"canvas\");\r\n        const context = canvas.getContext(\"2d\");\r\n        const imageWidth = image.width;\r\n        // 考虑到长途的情况 这里是按比例切分 比如他的比例宽高超过了1:3则强行剪成1:3\r\n        const ratioHeight = 3 * image.width;\r\n        const imageHeight =\r\n          image.height > ratioHeight ? ratioHeight : image.height;\r\n        canvas.width = imageWidth;\r\n        canvas.height = imageHeight;\r\n        if (context) {\r\n          context.drawImage(\r\n            image,\r\n            0,\r\n            0,\r\n            imageWidth,\r\n            imageHeight,\r\n            0,\r\n            0,\r\n            imageWidth,\r\n            imageHeight\r\n          );\r\n          const newfile = dataURLtoFile(\r\n            canvas.toDataURL(\"image/jpeg\"),\r\n            `${fileName}.jpeg`\r\n          ) as File;\r\n          resolve(newfile);\r\n        }\r\n        // 超出裁剪 这一步还可以优化就是如果缩略图不需要那么大的像素点 可以缩小像素点\r\n      };"
+      }
+    ]
+  },
+  {
+    "fileName": "time",
+    "data": [
+      {
+        "id": 0,
+        "funName": "chineseWeek",
+        "code": "/**\r\n * 返回对应的星期 如2023/1/10返回二\r\n * @param time 当前时间\r\n * @returns 星期\r\n */\r\nconst chineseWeek = (time: Date): string => {\r\n  const weekObj = {\r\n    0: \"日\",\r\n    1: \"一\",\r\n    2: \"二\",\r\n    3: \"三\",\r\n    4: \"四\",\r\n    5: \"五\",\r\n    6: \"六\",\r\n  };"
+      },
+      {
+        "id": 1,
+        "funName": "secondToMinSecond",
+        "code": "/**\r\n * 把s转分秒\r\n * @param time 秒数 number\r\n * @returns eg 02:30\r\n */\r\nconst secondToMinSecond = (time: number): string => {\r\n  const min: number = Math.floor(time / 60);\r\n  const second: number = Math.floor(time - min * 60);\r\n  return `${ifLessThanTenAddZero(min)}:${ifLessThanTenAddZero(second)}`;\r\n};"
+      },
+      {
+        "id": 2,
+        "funName": "chineseCurrentTime",
+        "code": "/**\r\n * 返回中文的时间 时效性强\r\n * 超出今年的年份 返回例子: 2022-1-20\r\n * 在今年不在本月中 返回例子: 1-20\r\n * 在本月不在本周 返回例子: 1-20\r\n * 在本周不在昨天 返回例子: 周六-10:20\r\n * 昨天 返回例子: 昨天-20:00\r\n * 当天 返回例子: 20:00\r\n * 错误情况 返回例子: 时间错误\r\n * @param time 时间Date\r\n * @returns string\r\n */\r\nconst chineseCurrentTime = (time: Date): string => {\r\n  const timeNum = dayjs(time).valueOf();\r\n  // 当前年的最开始\r\n  const yearStart = dayjs().startOf(\"year\").valueOf();\r\n  // 当前月的最开始\r\n  const monthStart = dayjs().startOf(\"month\").valueOf();\r\n  // 当前周的最开始\r\n  const weekStart = dayjs().startOf(\"week\").valueOf();\r\n  // 当前天的最开始\r\n  const todayStart = dayjs().startOf(\"day\").valueOf();\r\n  // 昨天的最开始\r\n  const yestodayStart = dayjs().startOf(\"day\").valueOf() - 1000 * 60 * 60 * 24;\r\n\r\n  const year: number = dayjs(timeNum).year();\r\n  const month: string = ifLessThanTenAddZero(dayjs(timeNum).month() + 1);\r\n  const date: string = ifLessThanTenAddZero(dayjs(timeNum).date());\r\n  const hour: string = ifLessThanTenAddZero(dayjs(timeNum).hour());\r\n  const minute: string = ifLessThanTenAddZero(dayjs(timeNum).minute());\r\n  const weekValue: string = chineseWeek(time);\r\n  // 超出今年的年份\r\n  if (timeNum < yearStart) {\r\n    return `${year}-${month}-${date}`;\r\n  }\r\n  // 在今年不在本月中\r\n  if (ifInRange(yearStart, monthStart, timeNum)) {\r\n    return `${month}-${date}`;\r\n  }\r\n  // 在本月不在本周\r\n  if (ifInRange(monthStart, weekStart, timeNum)) {\r\n    return `${month}-${date}`;\r\n  }\r\n  // 在本周不在昨天\r\n  if (ifInRange(weekStart, yestodayStart, timeNum)) {\r\n    return `周${weekValue}-${hour}:${minute}`;\r\n  }\r\n  // 昨天的\r\n  if (ifInRange(yestodayStart, todayStart, timeNum)) {\r\n    return `昨天-${hour}:${minute}`;\r\n  }\r\n  // 当天的\r\n  if (timeNum > todayStart) {\r\n    return `${hour}:${minute}`;\r\n  }\r\n  return \"时间错误\";\r\n};"
+      }
+    ]
+  }
+]
