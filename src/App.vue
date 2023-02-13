@@ -41,7 +41,6 @@ const darkThemeOverrides = {
 };
 const router = useRouter();
 const keyChange = (key: string) => {
-  // router.push({ path: "/" + key });
   router.push({
     name: "home",
     params: {
@@ -62,7 +61,7 @@ const keyChange = (key: string) => {
         <n-layout has-sider class="h-screen">
           <n-layout-sider
             content-style="padding: 16px;"
-            class="sm:hidden md:hidden lg:block"
+            class="hidden lg:block"
           >
             <LeftMenu @key-change="keyChange" />
           </n-layout-sider>

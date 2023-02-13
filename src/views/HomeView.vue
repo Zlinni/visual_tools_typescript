@@ -1,125 +1,23 @@
 <template>
   <!-- <n-menu ></n-menu> -->
   <div class="flex w-full">
-    <div style="width: calc(100% - 228px)" class="mr-[36px]">
-      <div class="grid-cols-2 gap-[16px] items-start lg:hidden xl:grid">
+    <div class="mr-[36px] calcWidth">
+      <div class="grid-cols-2 gap-[16px] items-start hidden xl:grid">
         <div
           v-for="(g, gIdx) in gridData"
           :key="gIdx"
           class="grid grid-template-columns-max gap-[16px]"
         >
-          <n-card
-            v-for="(n, idx) in g"
-            :key="idx"
-            :title="n.funName"
-            :segmented="{
-              content: true,
-              footer: true,
-            }"
-            :id="n.funName + '.fun'"
-          >
-            <template #header-extra>
-              <div class="flex items-center gap-2">
-                <n-tooltip placement="bottom" trigger="hover">
-                  <template #trigger>
-                    <IconTool
-                      icon="charm:copy"
-                      class="cursor-pointer"
-                      size="12"
-                    />
-                  </template>
-                  <span> 复制 </span>
-                </n-tooltip>
-                <n-tooltip placement="bottom" trigger="hover">
-                  <template #trigger>
-                    <IconTool
-                      icon="ic:outline-code"
-                      size="16"
-                      class="cursor-pointer"
-                      :color="!currentIdxArr.includes(n.id) ? '#7fe7c4' : ''"
-                      @click="
-                        ArrayTool.addOrDelInArray(currentIdxArr, n.id, 'push')
-                      "
-                    />
-                  </template>
-                  <span>
-                    {{ !currentIdxArr.includes(n.id) ? "折叠" : "展开" }}
-                  </span>
-                </n-tooltip>
-              </div>
-            </template>
-            <!-- <div style="overflow: auto">
-              <n-code :code="n.example" language="javascript" />
-            </div> -->
-            <template #footer v-if="!currentIdxArr.includes(n.id)">
-              <n-scrollbar>
-                <n-code :code="n.code" language="javascript" />
-              </n-scrollbar>
-              <!-- <div style="overflow: auto"> -->
-              <!-- </div> -->
-            </template>
-            <!-- <template #action> #action </template> -->
-          </n-card>
+          <CardTemp :datas="g" />
         </div>
       </div>
       <div
-        class="grid-template-columns-max gap-[16px] items-start lg:grid xl:hidden"
+        class="grid-template-columns-max gap-[16px] items-start grid xl:hidden"
       >
-        <n-card
-          v-for="(n, idx) in commonData"
-          :key="idx"
-          :title="n.funName"
-          :segmented="{
-            content: true,
-            footer: true,
-          }"
-          :id="n.funName + '.fun'"
-        >
-          <template #header-extra>
-            <div class="flex items-center gap-2">
-              <n-tooltip placement="bottom" trigger="hover">
-                <template #trigger>
-                  <IconTool
-                    icon="charm:copy"
-                    class="cursor-pointer"
-                    size="12"
-                  />
-                </template>
-                <span> 复制 </span>
-              </n-tooltip>
-              <n-tooltip placement="bottom" trigger="hover">
-                <template #trigger>
-                  <IconTool
-                    icon="ic:outline-code"
-                    size="16"
-                    class="cursor-pointer"
-                    :color="!currentIdxArr.includes(n.id) ? '#7fe7c4' : ''"
-                    @click="
-                      ArrayTool.addOrDelInArray(currentIdxArr, n.id, 'push')
-                    "
-                  />
-                </template>
-                <span>
-                  {{ currentIdxArr.includes(n.id) ? "展开" : "折叠" }}
-                </span>
-              </n-tooltip>
-            </div>
-          </template>
-          <!-- <div style="overflow: auto">
-              <n-code :code="n.example" language="javascript" />
-            </div> -->
-          <template #footer v-if="!currentIdxArr.includes(n.id)">
-            <n-scrollbar>
-              <n-code :code="n.code" language="javascript" />
-            </n-scrollbar>
-            <!-- <div style="overflow: auto"> -->
-            <!-- </div> -->
-          </template>
-          <!-- <template #action> #action </template> -->
-        </n-card>
+        <CardTemp :datas="commonData" />
       </div>
     </div>
-    <div class="w-[192px]">
+    <div class="w-[192px] hidden md:block">
       <!-- listen-to=".document-scroll-container" -->
       <n-anchor
         affix
@@ -141,20 +39,18 @@
 </template>
 
 <script setup lang="ts">
-import IconTool from "@/components/IconTool/IconTool.vue";
 import { divContentDatas } from "@/utils/common";
-import { array as ArrayTool } from "zlinni_common_pkg";
+import CardTemp from "@/views/CardTemp.vue";
 import axios from "axios";
+import { useMessage } from "naive-ui";
 
+window.$message = useMessage();
+// const cardTemp = ref<InstanceType<typeof CardTemp>>();
+// cardTemp.value?.initDatas()
 const route = useRoute();
 onMounted(() => {
   getDatas();
 });
-interface FileData {
-  id: number;
-  funName: string;
-  code: string;
-}
 const originDatas = ref<
   Array<{
     fileName: string;
@@ -186,7 +82,6 @@ const getQueryData = (inKey: string) => {
   }
 };
 
-const currentIdxArr = ref<number[]>([]);
 const gridData = ref<FileData[][]>([]);
 const commonData = ref<FileData[]>([]);
 </script>
@@ -194,5 +89,15 @@ const commonData = ref<FileData[]>([]);
 <style scoped>
 .grid-template-columns-max {
   grid-template-columns: 100%;
+}
+@media screen and (max-width: 767px) {
+  .calcWidth {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 767px) {
+  .calcWidth {
+    width: calc(100% - 228px);
+  }
 }
 </style>

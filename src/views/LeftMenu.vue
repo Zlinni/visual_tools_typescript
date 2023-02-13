@@ -16,6 +16,11 @@ const renderIcon = (icon: string) => () =>
   h(IconTool, {
     icon,
   });
+const route = useRoute();
+watch(
+  route,
+  (val) => val?.params?.type && (selectedKey.value = val.params.type as string)
+);
 const menuOptions = reactive<MenuOption[]>([
   {
     label: "Common 通用",
