@@ -1,6 +1,6 @@
 <template>
   <n-icon :size="size">
-    <Icon :icon="icon"></Icon>
+    <Icon :icon="icon" class="cursor-pointer"></Icon>
   </n-icon>
 </template>
 

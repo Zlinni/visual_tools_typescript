@@ -2,6 +2,7 @@
 import { NConfigProvider, darkTheme, lightTheme } from "naive-ui";
 import { useDarkmode } from "./store/useDarkmode";
 import LeftMenu from "./views/LeftMenu.vue";
+import Header from "./views/Header.vue";
 import hljs from "highlight.js/lib/core";
 import javascript from "highlight.js/lib/languages/javascript";
 
@@ -58,27 +59,30 @@ const keyChange = (key: string) => {
   >
     <n-dialog-provider>
       <n-message-provider>
-        <n-layout has-sider class="h-screen">
-          <n-layout-sider
-            content-style="padding: 16px;"
-            class="hidden lg:block"
-          >
-            <LeftMenu @key-change="keyChange" />
-          </n-layout-sider>
-          <n-layout>
-            <n-layout-header>
-              <!-- <nav class="h-10">
-                <n-button @click="$router.push('/')">Home</n-button> |
-                <n-button @click="$router.push('/about')">About</n-button>
-              </nav> -->
-            </n-layout-header>
-            <n-layout-content
+        <n-layout :class="{ dark: darkMode }">
+          <n-layout-header>
+            <Header />
+            <!-- <nav class="h-10">
+                  <n-button @click="$router.push('/')">Home</n-button> |
+                  <n-button @click="$router.push('/about')">About</n-button>
+                </nav> -->
+          </n-layout-header>
+          <n-layout has-sider>
+            <n-layout-sider
               content-style="padding: 16px;"
-              class="document-scroll-container"
+              class="hidden lg:block"
             >
-              <RouterView />
-            </n-layout-content>
-            <!-- <n-layout-footer>我是底部footer</n-layout-footer> -->
+              <LeftMenu @key-change="keyChange" />
+            </n-layout-sider>
+            <n-layout>
+              <n-layout-content
+                content-style="padding: 16px;"
+                class="document-scroll-container"
+              >
+                <RouterView />
+              </n-layout-content>
+              <!-- <n-layout-footer>我是底部footer</n-layout-footer> -->
+            </n-layout>
           </n-layout>
         </n-layout>
       </n-message-provider>
