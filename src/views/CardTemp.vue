@@ -14,6 +14,20 @@
         <n-tooltip placement="bottom" trigger="hover">
           <template #trigger>
             <IconTool
+              icon="octicon:git-pull-request-16"
+              size="12"
+              @click="
+                dt.injectHerf(
+                  'https://github.com/Zlinni/visual_tools_typescript/issues/new'
+                )
+              "
+            />
+          </template>
+          <span> issue </span>
+        </n-tooltip>
+        <n-tooltip placement="bottom" trigger="hover">
+          <template #trigger>
+            <IconTool
               icon="charm:copy"
               class="cursor-pointer"
               size="12"
@@ -38,22 +52,16 @@
         </n-tooltip>
       </div>
     </template>
-    <!-- <div style="overflow: auto">
-              <n-code :code="n.example" language="javascript" />
-            </div> -->
     <template #footer v-if="currentFunNameArr.includes(n.funName)">
       <n-scrollbar>
         <n-code :code="n.code" language="javascript" />
       </n-scrollbar>
-      <!-- <div style="overflow: auto"> -->
-      <!-- </div> -->
     </template>
-    <!-- <template #action> #action </template> -->
   </n-card>
 </template>
 
 <script setup lang="ts">
-import { array as ArrayTool } from "zlinni_common_pkg";
+import { array as at, dom as dt } from "zlinni_common_pkg";
 
 const props = withDefaults(
   defineProps<{
@@ -66,7 +74,7 @@ const comDatas = computed(() => {
 });
 const currentFunNameArr = ref<string[]>([]);
 const changecurrentFunNameArr = (target: string) => {
-  ArrayTool.addOrDelInArray(currentFunNameArr.value, target, "push");
+  at.addOrDelInArray(currentFunNameArr.value, target, "push");
 };
 const copy = (code: string) => {
   const input = document.createElement("input");

@@ -59,15 +59,15 @@ const keyChange = (key: string) => {
   >
     <n-dialog-provider>
       <n-message-provider>
-        <n-layout :class="{ dark: darkMode }">
-          <n-layout-header>
+        <n-layout :class="{ dark: darkMode }" class="h-screen">
+          <n-layout-header class="h-[63px]">
             <Header />
             <!-- <nav class="h-10">
                   <n-button @click="$router.push('/')">Home</n-button> |
                   <n-button @click="$router.push('/about')">About</n-button>
                 </nav> -->
           </n-layout-header>
-          <n-layout has-sider>
+          <n-layout has-sider class="sider">
             <n-layout-sider
               content-style="padding: 16px;"
               class="hidden lg:block"
@@ -89,3 +89,9 @@ const keyChange = (key: string) => {
     </n-dialog-provider>
   </n-config-provider>
 </template>
+
+<style>
+.sider {
+  height: calc(100% - 63px);
+}
+</style>
