@@ -14,8 +14,9 @@
         <n-tooltip placement="bottom" trigger="hover">
           <template #trigger>
             <IconTool
-              icon="octicon:git-pull-request-16"
+              icon="octicon:issue-opened-16"
               size="12"
+              class="hover:text-[#7fe7c4]"
               @click="
                 dt.injectHerf(
                   'https://github.com/Zlinni/visual_tools_typescript/issues/new'
@@ -29,7 +30,7 @@
           <template #trigger>
             <IconTool
               icon="charm:copy"
-              class="cursor-pointer"
+              class="hover:text-[#7fe7c4]"
               size="12"
               @click="copy(n.code)"
             />
@@ -41,7 +42,7 @@
             <IconTool
               icon="ic:outline-code"
               size="16"
-              class="cursor-pointer"
+              class="hover:text-[#7fe7c4]"
               :color="currentFunNameArr.includes(n.funName) ? '#7fe7c4' : ''"
               @click="changecurrentFunNameArr(n.funName)"
             />
